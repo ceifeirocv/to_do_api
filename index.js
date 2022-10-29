@@ -6,6 +6,13 @@ const app = express();
 const PORT = 5000;
 
 app.use(express.json());
+app.use((err, req, res, next) => {
+  if (err){
+    res.status(400).json({"erro": 'Invalid Request data'});
+  }else{
+    next();
+  }
+})
 
 let todos = [];
 
@@ -14,7 +21,7 @@ app.get('/todos/:id', (req, res) => {
   const id = req.params.id;
   const todo = todos.find((todo) => todo.id === id);
   if(!todo) {
-    res.status(400).json({"message":"Page not found"});
+    res.status(404).json({"message":"Page not found"});
   }
   res.status(200).json(todo);
 })
@@ -30,7 +37,7 @@ app.put('/todos/:id', (req, res) => {
   const todoIndex = todos.findIndex((todo) =>todo.id === id);
 
   if(todoIndex === -1) {
-    res.status(400).json({"message":"Page not found"});
+    res.status(404).json({"message":"Page not found"});
     return
   }
   if(title){
