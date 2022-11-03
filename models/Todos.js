@@ -1,50 +1,63 @@
 import {v4 as uuidv4} from 'uuid';
-let todos = [];
+import db from '../config/database.js'
+
+// db.query('SELECT NOW()', (err, res)=>{
+//   console.log(err, res.rows);
+//   db.end;
+// })
+//let todos = [];
 
 class Todo {
-  static getAll() {
-    return todos;
-  } 
-
-  static getOne(id) {
-    const todo = todos.find((todo) => todo.id === id);
-    return todo;
-  }
-
-  static create(title, description) {
-    const todo = {
-      "id": uuidv4(),
-      "title": title,
-      "description": description,
-      "in_progress": true
+  static async getAll() {
+    try{
+      const todos = await db.query('SELECT * FROM todos');
+      return todos.rows;
+    }catch(error){
+      console.log(typeof error);
+      return {'error': error};
     };
-    
-    todos.push(todo);
-    return todo;
-  }
-  static delete(id){
-    todos = todos.filter((todo) => todo.id !== id);
-    return todos;
-  }
-
-  static update(id, title, description, in_progress){
-    const todoIndex = todos.findIndex((todo) =>todo.id === id);
-
-    if(todoIndex === -1) {
-      return false
-    }
-    if(title){
-      todos[todoIndex].title = title;
-    }
-    if(description){
-      todos[todoIndex].description = description;
-    }
+  };
   
-    if (in_progress !== undefined){
-      todos[todoIndex].in_progress = in_progress;
-    }
-    
-    return todos[todoIndex]
+  static async getOne(id) {
+    try{
+      const todo = await db.query('SELECT * FROM todos WHERE id = $1', [id]);
+      return todo.rows[0];
+    }catch(error) {
+      console.log(error);
+      return {'error':error};
+    };
+  };
+
+  static async create(title, description) {
+    try{
+      const todo = await db.query('INSERT INTO todos(title, description) VALUES($1, $2) RETURNING *', [title, description])
+      return todo.rows[0];
+    }catch(error) {
+      console.log(error);
+      return {'error':error}
+    };
+  }
+
+  static async delete(id){
+    try{
+      const todo = await db.query('DELETE FROM todos WHERE id = $1 RETURNING *', [id])
+      return todo.rows[0];
+    }catch(error) {
+      console.log(error);
+      return {'error':error}
+    };
+
+  }
+
+  static async update(id, todo){
+    const {title, description, in_progress} = todo;
+    try{
+      const updatedTodo = await db.query('UPDATE todos SET title = $1, description = $2, in_progress = $3 WHERE id = $4 RETURNING *', [title, description, in_progress, id])
+      return updatedTodo.rows[0];
+    }catch(error) {
+      console.log(error);
+      return {'error':error}
+    };
   }
 }
 
