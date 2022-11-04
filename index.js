@@ -44,7 +44,7 @@ app.put('/todos/:id', (req, res) => {
   }
   if(title){
     title = title.trim();
-    if (title.length <= 5 || title.length >= 250 ){
+    if (title.length <= 5 || title.length >= 50 ){
       res.status(400).json({"message":"Title must contain 5 to 50 character"});
       return;
     }
