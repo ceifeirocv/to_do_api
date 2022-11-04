@@ -21,7 +21,8 @@ app.get('/todos/:id', (req, res) => {
   const id = req.params.id;
   const todo = todos.find((todo) => todo.id === id);
   if(!todo) {
-    res.status(404).json({"message":"Page not found"});
+    res.status(404).json({"message":"Todo do not exist, provide a valid Id "});
+    return;
   }
   res.status(200).json(todo);
 })
@@ -38,7 +39,7 @@ app.put('/todos/:id', (req, res) => {
 
   if(todoIndex === -1) {
     res.status(404).json({"message":"Page not found"});
-    return
+    return;
   }
   if(title){
     if (title.length <= 5 || title.length > 50 ){
@@ -70,17 +71,28 @@ app.put('/todos/:id', (req, res) => {
 
 
 app.post('/todos', (req, res) => {
-  const { title, description } = req.body;
-  
-  if (!title || title.length <= 5 || title.length > 50 ){
-    res.status(400).json({"message":"Title must contain 5 to 50 character"});
-    return;
-  }   
-  if (!description || description.length <= 20 || description.length > 250){
-    res.status(400).json({"message":"Description must contain 20 to 250 character"});
+  let { title, description } = req.body;
+
+  if(title){
+    title = title.trim();
+    if (title.length <= 5 || title.length > 50 ){
+      res.status(400).json({"message":"Title must contain 5 to 50 character"});
+      return;
+    }
+  }else{
+    res.status(400).json({"message":"Provide a Title"});
     return;
   }
-  
+  if (description){
+    description = description.trim()
+    if (description.length <= 20 || description.length > 250){
+      res.status(400).json({"message":"Description must contain 20 to 250 character"});
+      return;
+    }
+  }else{
+    res.status(400).json({"message":"Provide a Description"});
+    return;
+  }
   const todo = {
     "id": uuidv4(),
     "title": title,
@@ -102,12 +114,12 @@ app.get('/todos', (req, res) => {
 
 app.get('/', (req, res) => {
   res.status(200).json({"message":"ToDo API"});
-})
+});
 
 app.use((req, res) => {
-  res.status(404).json({"message":"Page not found"});
-})
+  res.status(404).json({"message":"Resourse do not exist."});
+});
 
 app.listen(PORT, () => {
   console.log(`listening on http://127.0.0.1:${PORT}`);
-})
+});
