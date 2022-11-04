@@ -15,7 +15,7 @@ export async function getTodo(req, res) {
   const id = req.params.id;
   const todo = await Todo.getOne(id);
   if(!todo) {
-    res.status(404).json({"message":"Page not found"});
+    res.status(404).json({"message":"Todo not found, provide a valid Id"});
     return
   }
   res.status(200).json(todo);  
@@ -25,7 +25,7 @@ export async function deleteTodo(req, res){
   const id = req.params.id;
   const todo = await Todo.delete(id);
   if(!todo) {
-    res.status(404).json({"message":"Page not found"});
+    res.status(404).json({"message":"Todo not found, provide a valid Id"});
     return;
   }
   res.status(200).json(todo);
@@ -36,7 +36,7 @@ export async function updateTodo(req, res){
   const { title, description, in_progress} = req.body;
   const todo = await Todo.getOne(id);
   if(!todo) {
-    res.status(404).json({"message":"Page not found"});
+    res.status(404).json({"message":"Todo not found, provide a valid Id"});
     return;
   }
 
