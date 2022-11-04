@@ -48,7 +48,7 @@ export async function updateTodo(req, res){
     todo.title = title;
   }
   if(description){
-    if (description.length <= 20 || description.length > 250 ){
+    if (description.length <= 20 || description.length >= 250 ){
       res.status(400).json({"message":"Description must contain 20 to 250 character"});
       return;
     }
@@ -80,7 +80,7 @@ export async function createTodo (req, res) {
     res.status(400).json({"message":"Title must contain 5 to 50 character"});
     return;
   }   
-  if (!description || description.length <= 20 || description.length > 250){
+  if (!description || description.length <= 20 || description.length >= 250){
     res.status(400).json({"message":"Description must contain 20 to 250 character"});
     return;
   }
