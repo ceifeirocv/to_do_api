@@ -1,6 +1,7 @@
 import Todo from '../models/Todos.js'
 
-//let todos = [];
+const re = /^\d+$/;
+
 
 export async function listTodos(req,res) {
   const todos = await Todo.getAll();
@@ -13,6 +14,10 @@ export async function listTodos(req,res) {
 
 export async function getTodo(req, res) {
   const id = req.params.id;
+  if(!re.test(id)){
+    res.status(400).json({"message":"Todo not found, provide a valid Id"});
+    return;
+  };
   const todo = await Todo.getOne(id);
   if(!todo) {
     res.status(400).json({"message":"Todo not found, provide a valid Id"});
@@ -27,6 +32,10 @@ export async function getTodo(req, res) {
 
 export async function deleteTodo(req, res){
   const id = req.params.id;
+  if(!re.test(id)){
+    res.status(400).json({"message":"Todo not found, provide a valid Id"});
+    return;
+  };
   const todo = await Todo.delete(id);
   if(!todo) {
     res.status(400).json({"message":"Todo not found, provide a valid Id"});
@@ -37,14 +46,18 @@ export async function deleteTodo(req, res){
     return;
   } 
   res.status(200).json({
-    "message":`To Do: ${id} deleted`,
+    "message":`To Do: ${todo.title} deleted`,
     "todo" : todo
   });
 }
 
 export async function updateTodo(req, res){
   const id = req.params.id;
-  const { title, description, in_progress} = req.body;
+  if(!re.test(id)){
+    res.status(400).json({"message":"Todo not found, provide a valid Id"});
+    return;
+  };
+  let { title, description, in_progress} = req.body;
   const todo = await Todo.getOne(id);
   if(!todo) {
     res.status(400).json({"message":"Todo not found, provide a valid Id"});
@@ -56,6 +69,7 @@ export async function updateTodo(req, res){
   } 
 
   if(title){
+    title = title.trim();
     if (title.length <= 5 || title.length >= 50 ){
       res.status(400).json({"message":"Title must contain 5 to 50 character"});
       return;
@@ -63,6 +77,7 @@ export async function updateTodo(req, res){
     todo.title = title;
   }
   if(description){
+    description = description.trim();
     if (description.length <= 20 || description.length >= 250 ){
       res.status(400).json({"message":"Description must contain 20 to 250 character"});
       return;
