@@ -8,8 +8,8 @@ const PORT = 5000;
 app.use(express.json());
 app.use((err, req, res, next) => {
   if (err){
-    res.status(400).json({"erro": 'Invalid Request data'});
-  }else{
+    res.status(400).json({"message": "Invalid Request data"});
+  } else {
     next();
   }
 })
@@ -32,24 +32,27 @@ app.delete('/todos/:id', (req, res) => {
   todos = todos.filter((todo) => todo.id !== id);
   res.status(200).json(todos);
 })
+
 app.put('/todos/:id', (req, res) => {
   const id = req.params.id;
-  const { title, description, in_progress} = req.body;
+  let { title, description, in_progress} = req.body;
   const todoIndex = todos.findIndex((todo) =>todo.id === id);
 
   if(todoIndex === -1) {
-    res.status(404).json({"message":"Page not found"});
+    res.status(404).json({"message":"Todo do not exist, provide a valid Id"});
     return;
   }
   if(title){
-    if (title.length <= 5 || title.length > 50 ){
+    title = title.trim();
+    if (title.length <= 5 || title.length >= 250 ){
       res.status(400).json({"message":"Title must contain 5 to 50 character"});
       return;
     }
     todos[todoIndex].title = title;
   }
   if(description){
-    if (description.length <= 20 || description.length > 50 ){
+    description = description.trim();
+    if (description.length <= 20 || description.length >= 250 ){
       res.status(400).json({"message":"Description must contain 20 to 250 character"});
       return;
     }
@@ -65,7 +68,7 @@ app.put('/todos/:id', (req, res) => {
   }
   res.status(200).json({
     "message":`To Do: ${id} updated`,
-    "todo" : todos[todoIndex],
+    "todo" : todos[todoIndex]
   });
 })
 
@@ -75,7 +78,7 @@ app.post('/todos', (req, res) => {
 
   if(title){
     title = title.trim();
-    if (title.length <= 5 || title.length > 50 ){
+    if (title.length <= 5 || title.length >= 50 ){
       res.status(400).json({"message":"Title must contain 5 to 50 character"});
       return;
     }
@@ -85,7 +88,7 @@ app.post('/todos', (req, res) => {
   }
   if (description){
     description = description.trim()
-    if (description.length <= 20 || description.length > 250){
+    if (description.length <= 20 || description.length >= 250){
       res.status(400).json({"message":"Description must contain 20 to 250 character"});
       return;
     }
