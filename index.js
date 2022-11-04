@@ -1,19 +1,16 @@
 import express from 'express';
+import * as dotenv from 'dotenv';
+
 import router from './routes/todosRoutes.js';
+import checkJson from './middleware/checkJson.js';
 
-
+dotenv.config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use((err, req, res, next) => {
-  if (err){
-    res.status(400).json({"erro": 'Invalid Request data'});
-  }else{
-    next();
-  }
-})
+app.use(checkJson)
 
 app.use('/todos', router)
 

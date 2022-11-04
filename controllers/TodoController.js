@@ -15,7 +15,7 @@ export async function listTodos(req,res) {
 export async function getTodo(req, res) {
   const id = req.params.id;
   if(!re.test(id)){
-    res.status(400).json({"message":"Todo not found, provide a valid Id"});
+    res.status(400).json({"message":"Provide a valid Id"});
     return;
   };
   const todo = await Todo.getOne(id);
@@ -33,7 +33,7 @@ export async function getTodo(req, res) {
 export async function deleteTodo(req, res){
   const id = req.params.id;
   if(!re.test(id)){
-    res.status(400).json({"message":"Todo not found, provide a valid Id"});
+    res.status(400).json({"message":"Provide a valid Id"});
     return;
   };
   const todo = await Todo.delete(id);
@@ -54,7 +54,7 @@ export async function deleteTodo(req, res){
 export async function updateTodo(req, res){
   const id = req.params.id;
   if(!re.test(id)){
-    res.status(400).json({"message":"Todo not found, provide a valid Id"});
+    res.status(400).json({"message":"Provide a valid Id"});
     return;
   };
   let { title, description, in_progress} = req.body;
