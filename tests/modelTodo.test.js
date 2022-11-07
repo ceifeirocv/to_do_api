@@ -9,7 +9,6 @@ beforeEach(async() => {
 describe('Space test suite', () => {
   it('My Space test', async () => {
     const todos =await Todo.getAll();
-    console.log(typeof todos);
     expect(todos).toEqual([]);
   });
 });
