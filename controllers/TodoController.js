@@ -1,8 +1,33 @@
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
+import Joi from 'joi';
+
 import Todo from '../models/Todos.js';
 
 const re = /^\d+$/;
+const schemaCreate = Joi.object({
+  title: Joi.string()
+    .trim()
+    .min(5)
+    .max(50)
+    .required(),
+  description: Joi.string()
+    .trim()
+    .min(20)
+    .max(250)
+    .required(),
+});
+const schemaUpdated = Joi.object({
+  title: Joi.string()
+    .trim()
+    .min(5)
+    .max(50),
+  description: Joi.string()
+    .trim()
+    .min(20)
+    .max(250),
+  in_progress: Joi.boolean(),
+});
 
 export async function listTodos(req, res) {
   const todos = await Todo.getAll();
@@ -74,29 +99,19 @@ export async function updateTodo(req, res) {
     return;
   }
 
-  if (title) {
-    title = title.trim();
-    if (title.length < 5 || title.length > 50) {
-      res.status(400).json({ message: 'Title must contain 5 to 50 character' });
-      return;
-    }
-    todo.title = title;
+  const { value, error } = schemaUpdated.validate({ title, description, in_progress });
+  if (error) {
+    res.status(400).json({ message: error.message });
+    return;
   }
-  if (description) {
-    description = description.trim();
-    if (description.length < 20 || description.length > 250) {
-      res.status(400).json({ message: 'Description must contain 20 to 250 character' });
-      return;
-    }
-    todo.description = description;
+  if (value.title) {
+    todo.title = value.title;
   }
-
-  if (in_progress !== undefined) {
-    if (typeof in_progress !== 'boolean') {
-      res.status(400).json({ message: 'Status must be true or false' });
-      return;
-    }
-    todo.in_progress = in_progress;
+  if (value.description) {
+    todo.description = value.description;
+  }
+  if (value.in_progress !== undefined) {
+    todo.in_progress = value.in_progress;
   }
 
   const updatedTodo = await Todo.update(id, todo);
@@ -109,7 +124,6 @@ export async function updateTodo(req, res) {
     todo: updatedTodo,
   });
 }
-
 export async function createTodo(req, res) {
   if (!req.body) {
     res.status(400).json({ message: 'Provide a Information' });
@@ -117,34 +131,41 @@ export async function createTodo(req, res) {
   }
   let { title, description } = req.body;
 
-  if (title) {
-    title = title.trim();
-    if (title.length < 5 || title.length > 50) {
-      res.status(400).json({ message: 'Title must contain 5 to 50 character' });
-      return;
-    }
-  } else {
-    res.status(400).json({ message: 'Provide a Title' });
+  const { value, error } = schemaCreate.validate({ title, description });
+  if (error) {
+    res.status(400).json({ message: error.message });
     return;
   }
 
-  if (description) {
-    description = description.trim();
-    if (description.length < 20 || description.length > 250) {
-      res.status(400).json({ message: 'Description must contain 20 to 250 character' });
-      return;
-    }
-  } else {
-    res.status(400).json({ message: 'Provide a Description' });
-    return;
-  }
-  const todo = await Todo.create(title, description);
+  // if (title) {
+  //   title = title.trim();
+  //   if (title.length < 5 || title.length > 50) {
+  //     res.status(400).json({ message: 'Title must contain 5 to 50 character' });
+  //     return;
+  //   }
+  // } else {
+  //   res.status(400).json({ message: 'Provide a Title' });
+  //   return;
+  // }
+
+  // if (description) {
+  //   description = description.trim();
+  //   if (description.length < 20 || description.length > 250) {
+  //     res.status(400).json({ message: 'Description must contain 20 to 250 character' });
+  //     return;
+  //   }
+  // } else {
+  //   res.status(400).json({ message: 'Provide a Description' });
+  //   return;
+  // }
+
+  const todo = await Todo.create(value.title, value.description);
   if (todo.error) {
     res.status(500).json({ message: 'Internal Server Error' });
     return;
   }
   res.status(201).json({
-    message: `To Do: ${title} added to list`,
+    message: `To Do: ${value.title} added to list`,
     todo,
   });
 }
