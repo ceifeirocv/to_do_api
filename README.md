@@ -12,11 +12,11 @@ Specialization: Pset-1
   - length of title
   - length of description
   - status default as in_progress
-Task:
-  Use the same project that you created in the Pset 1
-  Create the data base in PostgreSQL (todo_db)
-  Include the sql structure
-  Make the connection in the project
-  Create models and controllers for specifics features
-Requirements:
-  Create unit test for every feature
+- Task:
+  - Use the same project that you created in the Pset 1
+  - Create the data base in PostgreSQL (todo_db)
+  - Include the sql structure
+  - Make the connection in the project
+  - Create models and controllers for specifics features
+- Requirements:
+  - Create unit test for every feature
