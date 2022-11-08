@@ -20,6 +20,7 @@ describe('listTodo Controller', () => {
     expect(res.statusCode).toBe(200);
     expect(res._getJSONData()).toEqual([]);
   });
+
   it('should returnd a list of Todos info', async () => {
     await db.query('INSERT INTO todos(title, description) VALUES($1, $2)', ["Lorem", "Sed ut perspiciatis."])
     await db.query('INSERT INTO todos(title, description) VALUES($1, $2)', ["Lorem", "Sed ut perspiciatis."])
