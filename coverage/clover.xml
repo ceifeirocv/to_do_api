@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1667926047345" clover="3.2.0">
-  <project timestamp="1667926047345" name="All files">
-    <metrics statements="183" coveredstatements="165" conditionals="37" coveredconditionals="31" methods="5" coveredmethods="5" elements="225" coveredelements="201" complexity="0" loc="183" ncloc="183" packages="2" files="2" classes="2"/>
-    <package name="config">
-      <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="0" coveredmethods="0"/>
-      <file name="database.js" path="/home/ceifeirocv/chuva/to_do_api/config/database.js">
-        <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1668074600200" clover="3.2.0">
+  <project timestamp="1668074600200" name="All files">
+    <metrics statements="229" coveredstatements="196" conditionals="47" coveredconditionals="36" methods="10" coveredmethods="10" elements="286" coveredelements="242" complexity="0" loc="229" ncloc="229" packages="2" files="2" classes="2"/>
     <package name="controllers">
       <metrics statements="171" coveredstatements="153" conditionals="36" coveredconditionals="30" methods="5" coveredmethods="5"/>
       <file name="TodoController.js" path="/home/ceifeirocv/chuva/to_do_api/controllers/TodoController.js">
@@ -195,6 +177,70 @@
         <line num="169" count="2" type="stmt"/>
         <line num="170" count="2" type="stmt"/>
         <line num="171" count="9" type="stmt"/>
+      </file>
+    </package>
+    <package name="models">
+      <metrics statements="58" coveredstatements="43" conditionals="11" coveredconditionals="6" methods="5" coveredmethods="5"/>
+      <file name="Todo.js" path="/home/ceifeirocv/chuva/to_do_api/models/Todo.js">
+        <metrics statements="58" coveredstatements="43" conditionals="11" coveredconditionals="6" methods="5" coveredmethods="5"/>
+        <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="11" type="stmt"/>
+        <line num="18" count="11" type="stmt"/>
+        <line num="19" count="11" type="stmt"/>
+        <line num="20" count="11" type="cond" truecount="0" falsecount="1"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="11" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="2" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="49" count="3" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+        <line num="51" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
       </file>
     </package>
   </project>

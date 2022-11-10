@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import Joi from 'joi';
 
-import Todo from '../models/Todos.js';
+import Todo from '../models/Todo.js';
 
 const re = /^\d+$/;
 const schemaCreate = Joi.object({
