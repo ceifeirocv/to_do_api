@@ -1,11 +1,11 @@
-import { Router } from 'express';
-import {
+const { Router } = require('express');
+const {
   listTodos,
   getTodo,
   deleteTodo,
   updateTodo,
   createTodo,
-} from '../controllers/TodoController.js';
+} = require('../controllers/TodoController');
 
 const router = Router();
 
@@ -19,4 +19,4 @@ router.post('/', createTodo);
 
 router.get('/', listTodos);
 
-export default router;
+module.exports = router;

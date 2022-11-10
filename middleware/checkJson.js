@@ -1,4 +1,4 @@
-export default (err, req, res, next) => {
+module.exports = (err, req, res, next) => {
   if (err) {
     res.status(400).json({ erro: 'Invalid Request data' });
   } else {

@@ -1,14 +1,14 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable no-undef */
 /* eslint-disable no-underscore-dangle */
-import httpMocks from 'node-mocks-http';
-import {
+const httpMocks = require('node-mocks-http');
+const {
   listTodos, getTodo, deleteTodo, createTodo, updateTodo,
-} from '../controllers/TodoController.js';
-import db from '../config/database.js';
+} = require('../controllers/TodoController');
+const db = require('../config/database');
 
-let req; let
-  res;
+let req;
+let res;
 
 beforeEach(async () => {
   await db.query('TRUNCATE TABLE todos RESTART IDENTITY');

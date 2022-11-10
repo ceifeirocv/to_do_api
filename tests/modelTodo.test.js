@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import Todo from '../models/Todo.js';
-import db from '../config/database.js';
+const Todo = require('../models/Todo');
+const db = require('../config/database');
 
 beforeEach(async () => {
   await db.query('TRUNCATE TABLE todos RESTART IDENTITY');

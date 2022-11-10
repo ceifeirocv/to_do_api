@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Specialization: Pset-1 -  A nodeJs project (Todo API)",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "nodemon index.js",
     "test": "jest",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npm run test -- --watch --detectOpenHandles"
+    "test:watch": "npm run test -- --watch"
   },
   "keywords": [
     "todo",

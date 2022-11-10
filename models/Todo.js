@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
-import db from '../config/database.js';
+const db = require('../config/database');
 
 class Todo {
   static async getAll() {
@@ -55,4 +55,4 @@ class Todo {
   }
 }
 
-export default Todo;
+module.exports = Todo;

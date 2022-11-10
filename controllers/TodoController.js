@@ -1,8 +1,8 @@
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
-import Joi from 'joi';
+const Joi = require('joi');
 
-import Todo from '../models/Todo.js';
+const Todo = require('../models/Todo');
 
 const re = /^\d+$/;
 const schemaCreate = Joi.object({
@@ -29,16 +29,16 @@ const schemaUpdated = Joi.object({
   in_progress: Joi.boolean(),
 });
 
-export async function listTodos(req, res) {
+exports.listTodos = async (req, res) => {
   const todos = await Todo.getAll();
   if (todos.error) {
     res.status(500).json({ message: 'Internal Server Error' });
     return;
   }
   res.status(200).json(todos);
-}
+};
 
-export async function getTodo(req, res) {
+exports.getTodo = async (req, res) => {
   const { id } = req.params;
   if (!re.test(id)) {
     res.status(400).json({ message: 'Provide a valid Id' });
@@ -54,9 +54,9 @@ export async function getTodo(req, res) {
     return;
   }
   res.status(200).json(todo);
-}
+};
 
-export async function deleteTodo(req, res) {
+exports.deleteTodo = async (req, res) => {
   const { id } = req.params;
   if (!re.test(id)) {
     res.status(400).json({ message: 'Provide a valid Id' });
@@ -75,9 +75,9 @@ export async function deleteTodo(req, res) {
     message: `To Do: ${todo.title} deleted`,
     todo,
   });
-}
+};
 
-export async function updateTodo(req, res) {
+exports.updateTodo = async (req, res) => {
   if (!req.body) {
     res.status(400).json({ message: 'Provide a Information' });
     return;
@@ -123,8 +123,9 @@ export async function updateTodo(req, res) {
     message: `To Do: ${id} updated`,
     todo: updatedTodo,
   });
-}
-export async function createTodo(req, res) {
+};
+
+exports.createTodo = async (req, res) => {
   if (!req.body) {
     res.status(400).json({ message: 'Provide a Information' });
     return;
@@ -168,4 +169,4 @@ export async function createTodo(req, res) {
     message: `To Do: ${value.title} added to list`,
     todo,
   });
-}
+};
