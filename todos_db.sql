@@ -1,0 +1,8 @@
+CREATE DATABASE todos_db;
+
+CREATE TABLE todos (
+  id SERIAL PRIMARY kEY,
+  title VARCHAR(50) NOT NULL,
+  description VARCHAR(250) NOT NULL,
+  in_progress BOOLEAN NOT NULL DEFAULT true
+);
