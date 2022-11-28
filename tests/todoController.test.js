@@ -26,15 +26,6 @@ describe('listTodo Controller', () => {
     expect(res.statusCode).toBe(200);
     expect(res._getJSONData()).toEqual([]);
   });
-  it('has a listTodo metthod', () => {
-    expect(typeof listTodos).toBe('function');
-  });
-  it('should  return empty array', async () => {
-    await listTodos(req, res);
-    res.__body = '';
-    expect(res.statusCode).toBe(200);
-    expect(res._getJSONData()).toEqual([]);
-  });
 
   it('should returnd a list of Todos info', async () => {
     await db.query('INSERT INTO todos(title, description) VALUES($1, $2)', ['Lorem', 'Sed ut perspiciatis.']);
